@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+
+{% if user.is_authenticated %}
+    <script>
+        alert("권한이 없는 페이지에 접근하였으니, 권한이 있는 계정으로 로그인하세요");
+    </script>
+{% else %}
+    <script>
+        alert("이 페이지를 보려면 로그인을 해야 합니다.");
+    </script>
+{% endif %}
