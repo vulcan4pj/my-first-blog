@@ -24,9 +24,22 @@ MainPage
        $(function () {
            $("#grid").igGrid({
                columns: [
-                   { headerText: "Product ID", key: "ProductID", dataType: "number" },
-                   { headerText: "Product Name", key: "Name", dataType: "string" },
-                   { headerText: "Product Number", key: "ProductNumber", dataType: "string" }
+                    { 
+                        headerText: "Product ID", 
+                        key: "ProductID", 
+                        dataType: "number"
+                    }, {
+                        headerText: "Product Name",
+                        key: "Name",
+                        dataType: "string",
+                        formatter : function(val, obj){
+                            
+                        }
+                    }, { 
+                        headerText: "Product Number",
+                        key: "ProductNumber",
+                        dataType: "string"
+                    }
                ],
                width: "500px",
                dataSource: products
@@ -34,15 +47,15 @@ MainPage
        }); 
     });
 </script>
-<nav class="ui fixed menu inverted navbar">
-    <a href="" class="brand item">Project Name</a>
-    <a href="" class="active item">Home</a>
-    <a href="" class="item">Features</a>
-    <a href="" class="item">Contact</a>
-</nav> <!-- end nav -->
+<!--<nav class="ui fixed menu inverted navbar">-->
+<!--    <a href="" class="brand item">Project Name</a>-->
+<!--    <a href="" class="active item">Home</a>-->
+<!--    <a href="" class="item">Features</a>-->
+<!--    <a href="" class="item">Contact</a>-->
+<!--</nav> -->
 
-<body>
-    <div id="grid"></div>
-</body>
+<!--<div class="ui main text container">-->
+<div id="grid"></div>
+<!--</div>-->
 
 {% endblock %}
