@@ -33,7 +33,8 @@ MainPage
                         key: "Name",
                         dataType: "string",
                         formatter : function(val, obj){
-                            
+                            console.log(_.isUndefined(val));
+                            return val;
                         }
                     }, { 
                         headerText: "Product Number",
