@@ -9,6 +9,9 @@ MainPage
 
 <script>
     $(document).ready(function(){
+
+        var MAX_SIZE = 10000;
+        
         var products = [
             { "ProductID": 1, "Name": "Adjustable Race", "ProductNumber": "AR-5381" },
             { "ProductID": 2, "Name": "Bearing Ball", "ProductNumber": "BA-8327" },
@@ -17,49 +20,73 @@ MainPage
             { "ProductID": 316, "Name": "Blade", "ProductNumber": "BL-2036" },
             { 
                 "ProductID": 317, 
-                "Name": ["Name1","Name2","Name3","Name4","Name5","Name6","Name7","Name8","Name9","Name10","Name11","Name12","Name13","Name14"], 
+                "Name": ["naver.com","google.com","daum.net","youtube.com","facebook.com","tistory.com","twitter.com","nate.com","instagram.com","auction.co.kr","11st.co.kr","yahoo.com","danawa.com","nexon.com"], 
                 "ProductNumber": "CA-5965" },
             { "ProductID": 318, "Name": "ML Crankarm", "ProductNumber": "CA-6738" },
             { "ProductID": 319, "Name": "HL Crankarm", "ProductNumber": "CA-7457" },
             { "ProductID": 320, "Name": "Chainring Bolts", "ProductNumber": "CB-2903" }
-       ];
- 
-       $(function () {
-           $("#grid").igGrid({
-               columns: [
-                    { 
-                        headerText: "Product ID", 
-                        key: "ProductID", 
-                        dataType: "number"
-                    }, {
-                        headerText: "Product Name",
-                        key: "Name",
-                        dataType: "string",
-                        formatter : function(val, obj){
-                            var itemarr = val.split(",");
+        ];
+        
+        var dataSource = [];
+        for(var i=0; i<MAX_SIZE; i++){
+            dataSource.push(_.sample(products));
+        }
+        
+        console.log(dataSource);
+        $("#grid").igGrid({
+            rowVirtualization: true,
+            columns: [{
+                headerText: "Product ID",
+                key: "ProductID",
+                dataType: "number"
+            }, {
+                headerText: "Product Name",
+                key: "Name",
+                dataType: "string",
+                formatter: function(val, obj) {
+                    var itemarr = val.split(",");
+        
+                    if (itemarr.length > 1) {
+                        var result = "";
+                        var div = $("<div />");
+                        
+                        for (var i = 0; i < itemarr.length; i++) {
+                            var itemStr = itemarr[i];
+                            var item = $("<div />");
+                            var icon = $("<span />")
+                            var text = $("<span />");
+                            icon.css({
+                                "width" : "19px",
+                                "height" : "19px",
+                                "background-image" : 'url("http://'+itemStr+'/favicon.ico")',
+                                "background-size" : "19px",
+                                "margin-right" : "10px",
+                                "float" : "left"
+                            });
                             
-                            if(itemarr.length > 1){
-                                var result = "";
-                                for(var i=0; i<itemarr.length; i++){
-                                    var name = itemarr[i];
-                                    result+="<div>"+name+"</div>";
-                                }
-                                return '<div style="height: 80px;overflow-y: scroll;">'+result+'</div>';
-                            } else {
-                                return val;    
-                            }
+                            text.text(itemStr);
                             
+                            item.append(icon);
+                            item.append(text);
+                            
+                            div.append(item);
                         }
-                    }, { 
-                        headerText: "Product Number",
-                        key: "ProductNumber",
-                        dataType: "string"
+                        return '<div style="height: 80px;overflow-y: scroll;">' + div.html() + '</div>';
                     }
-               ],
-               width: "500px",
-               dataSource: products
-           });
-       }); 
+                    else {
+                        return val;
+                    }
+        
+                }
+            }, {
+                headerText: "Product Number",
+                key: "ProductNumber",
+                dataType: "string"
+            }],
+            width: "500px",
+            height: "500px",
+            dataSource: dataSource
+        });
     });
 </script>
 <!--<nav class="ui fixed menu inverted navbar">-->
