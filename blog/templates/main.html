@@ -7,6 +7,33 @@ MainPage
 {% endblock %}
 {% block content %}
 
+<script>
+    $(document).ready(function(){
+        var products = [
+            { "ProductID": 1, "Name": "Adjustable Race", "ProductNumber": "AR-5381" },
+            { "ProductID": 2, "Name": "Bearing Ball", "ProductNumber": "BA-8327" },
+            { "ProductID": 3, "Name": "BB Ball Bearing", "ProductNumber": "BE-2349" },
+            { "ProductID": 4, "Name": "Headset Ball Bearings", "ProductNumber": "BE-2908" },
+            { "ProductID": 316, "Name": "Blade", "ProductNumber": "BL-2036" },
+            { "ProductID": 317, "Name": "LL Crankarm", "ProductNumber": "CA-5965" },
+            { "ProductID": 318, "Name": "ML Crankarm", "ProductNumber": "CA-6738" },
+            { "ProductID": 319, "Name": "HL Crankarm", "ProductNumber": "CA-7457" },
+            { "ProductID": 320, "Name": "Chainring Bolts", "ProductNumber": "CB-2903" }
+       ];
+ 
+       $(function () {
+           $("#grid").igGrid({
+               columns: [
+                   { headerText: "Product ID", key: "ProductID", dataType: "number" },
+                   { headerText: "Product Name", key: "Name", dataType: "string" },
+                   { headerText: "Product Number", key: "ProductNumber", dataType: "string" }
+               ],
+               width: "500px",
+               dataSource: products
+           });
+       }); 
+    });
+</script>
 <nav class="ui fixed menu inverted navbar">
     <a href="" class="brand item">Project Name</a>
     <a href="" class="active item">Home</a>
@@ -14,5 +41,8 @@ MainPage
     <a href="" class="item">Contact</a>
 </nav> <!-- end nav -->
 
+<body>
+    <div id="grid"></div>
+</body>
 
 {% endblock %}
